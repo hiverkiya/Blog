@@ -27,5 +27,5 @@ title String
 content String
 published Boolean @default(false)
 author User @relation(fields: [authorId], references: [id])
-authorId String
+authorId String // how the data is related 
 }
