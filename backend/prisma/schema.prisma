@@ -4,9 +4,22 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+// generator client {
+//   provider = "prisma-client-js"
+//   output   = "../src/generated/prisma"
+// // }
+// generator client_edge {
+//   provider = "prisma-client-js"
+//   previewFeatures = ["clientExtensions"]
+//   output   = "./node_modules/@prisma/client/edge"
+// }
+
 generator client {
-  provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+  provider        = "prisma-client-js"
+  // Keep your custom output path if you absolutely need it,
+  // but note that the 'edge' client typically lives in node_modules/@prisma/client/edge
+  // output          = "../src/generated/prisma"
+  previewFeatures = ["accelerate"] // <--- ADD THIS LINE
 }
 
 datasource db {
