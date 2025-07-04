@@ -4,22 +4,14 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
-// generator client {
-//   provider = "prisma-client-js"
-//   output   = "../src/generated/prisma"
-// // }
-// generator client_edge {
-//   provider = "prisma-client-js"
-//   previewFeatures = ["clientExtensions"]
-//   output   = "./node_modules/@prisma/client/edge"
-// }
-
 generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+generator client_edge {
   provider        = "prisma-client-js"
-  // Keep your custom output path if you absolutely need it,
-  // but note that the 'edge' client typically lives in node_modules/@prisma/client/edge
-  // output          = "../src/generated/prisma"
-  previewFeatures = ["accelerate"] // <--- ADD THIS LINE
+  previewFeatures = ["clientExtensions"] // This line is crucial for Accelerate
+  output          = "./node_modules/@prisma/client/edge" // This is the standard output for the edge client
 }
 
 datasource db {
@@ -27,7 +19,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 model User{
-id String @id @default(uuid())
+id Int @id @default(autoincrement())
 email String @unique
 name String? 
 password String
@@ -35,10 +27,10 @@ posts Post[]
 }
 model Post{
 
-id String @id @default(uuid())
+id Int @id @default(autoincrement())
 title String
 content String
 published Boolean @default(false)
 author User @relation(fields: [authorId], references: [id])
-authorId String // how the data is related 
+authorId Int // how the data is related 
 }

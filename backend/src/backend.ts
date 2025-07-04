@@ -4,6 +4,7 @@ import { decode, jwt, sign, verify } from "hono/jwt";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { userRouter } from "./routes/userRouter";
 import { blogRouter } from "./routes/blogRouter";
+import { cors } from "hono/cors";
 // To avoid the type error for the DATABASE_URL, passed a Generic and mentioned the type
 const app = new Hono<{
   Bindings: {
@@ -11,6 +12,7 @@ const app = new Hono<{
     JWT_SECRET: string;
   };
 }>();
+app.use("/*", cors());
 app.route("/api/v1/user", userRouter);
 app.route("/api/v1/blog", blogRouter);
 
